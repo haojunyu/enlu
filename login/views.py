@@ -3,6 +3,7 @@ from django.shortcuts import render,render_to_response
 from django import forms
 from django.http import HttpResponse,HttpResponseRedirect
 from login.models import User
+from handle.view import FileList
 
 # Create your views here.
 
@@ -22,11 +23,13 @@ def login(req):
 			if user.__len__() >= 1  :
 				if user[0].password == password :
 					return HttpResponseRedirect('/enlu/handle/?username=%s' % username)
-			#		return render_to_response('/enlu/handle/')
-i			else :
+				#	return render_to_response('overview.html',{})
+				else :
+				#	return HttpResponse('<script>alert("密码错误!")</script>')
 					return render_to_response('login.html',{'form':form, 'message':'密码错误!'})
 			else:
 				return render_to_response('login.html',{'form':form , 'message' : '没有该用户!'})
+			#	HttpResponse('<script>alert("没有该用户!")</script>')
 		#		return render_to_response('showMessage.html',{'message':'没有该用户!'})
 		#	print form.cleaned_data	# get data
 	else :
