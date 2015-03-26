@@ -3,7 +3,7 @@ from django.shortcuts import render,render_to_response
 from django import forms
 from django.http import HttpResponse,HttpResponseRedirect
 from login.models import User
-from handle.view import FileList
+#from handle.view import FileList
 
 # Create your views here.
 
