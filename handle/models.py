@@ -15,7 +15,7 @@ status_choices = (
 
 class File(models.Model):
 	user = models.ForeignKey(User)
-	filename = models.CharField(max_length=100)
+	filename = models.FileField(upload_to = './upload/%Y/%m%d')
 	status = models.CharField(max_length=1, choices=status_choices)
 	parameters = models.CharField(max_length=50)
 	result_link = models.CharField(max_length=100)

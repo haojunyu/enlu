@@ -1,5 +1,5 @@
 <html>
-<head><title>overview</title>
+<head><title>{{username}}'s workspaces</title>
 <style type="text/css">
 table{border:3 solid black; border-collapse:collapse}
 table th, table td{border:2 solid black}
@@ -7,7 +7,9 @@ table th, table td{border:2 solid black}
 
 </head>
 <body>
-<h3>Message:</h3>
+<a href="/enlu/upload"><input type="button"  value=文件上传></input></a>
+<h3> 任务状态显示</h3>
+
 {% if file_list %}
     <table id = "files">
         <tr>

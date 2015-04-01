@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^enlu/login/$','login.views.login'),
     url(r'^enlu/handle/$',FileList.as_view(),name='overview'),
+    url(r'^enlu/upload/$','handle.views.upload'),
 ]
