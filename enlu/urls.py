@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^enlu/login/$','login.views.login'),
     url(r'^enlu/handle/$',FileList.as_view(),name='overview'),
     url(r'^enlu/upload/$','handle.views.upload'),
+    url(r'^enlu/file_upload/$','handle.views.file_upload'),
+    url(r'^enlu/handle/analysis/$','handle.views.analysis'),
 ]

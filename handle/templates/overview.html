@@ -17,6 +17,7 @@ table th, table td{border:2 solid black}
             <th>文件名</th>
             <th>上传者</th>
             <th>状态</th>
+            <th>操作</th>
             <th>参数</th>
             <th>结果</th>
         </tr>
@@ -25,7 +26,18 @@ table th, table td{border:2 solid black}
             <td>{{file.id}}</td>
             <td>{{file.filename}}</td>
             <td>{{file.user}}</td>
-            <td>{{file.status}}</td>
+            {% if file.status == '1'%}
+            	<td>已上传</td>
+            	<td><a href="/enlu/handle/analysis/?file={{file.filename}}" >分析</a></td>
+            {% else %}
+            	{% if file.status == '2' %}
+           	 		<td>正在分析</td>
+           	 		<td>分析参数为：{{file.parameters}}</td>
+           	 	{% else %}
+           	 		<td>完成分析</td>
+						<td>结果链接：{{file.result_link}}</td>
+           	 	{% endif %}
+           	 {% endif %}
             <td>{{file.parameters}}</td>
             <td>{{file.result_link}}</td>
         </tr>
