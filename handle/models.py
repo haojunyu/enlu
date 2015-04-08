@@ -17,7 +17,7 @@ class File(models.Model):
 	user = models.ForeignKey(User)
 	filename = models.FileField(upload_to = './upload/%Y/%m%d')
 	status = models.CharField(max_length=1, choices=status_choices)
-	parameters = models.CharField(max_length=50)
+	parameters = models.CharField(max_length=200)
 	result_link = models.CharField(max_length=100)
 #	upload_time = models.DateTimeField(auto_now=False, auto_now_add=True)
 

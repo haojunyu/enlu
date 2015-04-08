@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head> 
+  
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h1 align ="center">Upload File</h1>
+    <form action="/enlu/file_upload/" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+        
+        {{formset.as_p}} 
+        <br />
+        
+        <input type="submit" value = "submit">
+        {% csrf_token %}
+        {% if formset.errors %}
+        <p> 
+        <br />
+        Please enter a correct user name and select a file
+        </p>
+        {% endif %}
+        <!!!! <button><!Submit</button>
+    </form>
+</div>
+</body>
+</html>
+

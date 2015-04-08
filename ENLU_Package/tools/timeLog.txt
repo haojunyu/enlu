@@ -9,3 +9,5 @@
 2014/10/31 16:16:35 Friday	Total Number of Entries:83229	Total CPU time:2250.22	Total Real time:2373	Word Segmentation time:19.81	Database search time:1.35	Topic classification time:374.75	Slot extraction time:1854.31
 2014/11/03 10:12:55 Monday	Total Number of Entries:48841	Total CPU time:230.25	Total Real time:444	Word Segmentation time:66.06	Database search time:0.64	Topic classification time:19.74	Slot extraction time:143.81
 2014/12/23 14:50:02 Tuesday	Total Number of Entries:3	Total CPU time:0.11	Total Real time:0	Word Segmentation time:0	Database search time:0	Topic classification time:0	Slot extraction time:0.11
+2015/04/08 14:23:41 Wednesday	Total Number of Entries:3	Total CPU time:0.113674	Total Real time:0	Word Segmentation time:0.001287	Database search time:4.4e-05	Topic classification time:0.009225	Slot extraction time:0.103118
+2015/04/08 14:24:31 Wednesday	Total Number of Entries:3	Total CPU time:0.112332	Total Real time:0	Word Segmentation time:0.001403	Database search time:4.5e-05	Topic classification time:0.008552	Slot extraction time:0.102332

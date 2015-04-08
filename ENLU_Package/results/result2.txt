@@ -1,9 +1,0 @@
-#head;Pateo_result;1.0;utf-8
-#text#true_topic#true_slots%%predicted_topic#predicted_slots_and_score
-head#
-美丽 华 办公 文具 乳山 店#res_type_NCS#Navi_GoToAddress#<POI_NM>=美丽华办公文具乳山店;%%Navi_GoToAddress;cls_score=0.999916#<POI_NM>=美丽华办公文具乳山店;slot_score=0.780047;
-上海 溪 南 阀门 有限公司 分公司#res_type_NCS#Navi_GoToAddress#<POI_NM>=上海溪南阀门有限公司分公司;%%Navi_GoToAddress;cls_score=0.999997#<POI_NM>=上海溪南阀门有限公司分公司;slot_score=0.773509;
-上海 丰天木 业 有限公司#res_type_NCS#Navi_GoToAddress#<POI_NM>=上海丰天木业有限公司;%%Navi_GoToAddress;cls_score=0.999997#<POI_NM>=上海丰天木业有限公司;slot_score=0.779344;
-#memory#10.25MB
-#time#2014/12/23 14:50:02 Tuesday	Total Number of Entries:3	Total CPU time:0.11	Total Real time:0	Word Segmentation time:0	Database search time:0	Topic classification time:0	Slot extraction time:0.11
-

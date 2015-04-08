@@ -5,13 +5,17 @@ from django.views.generic import ListView
 from handle.models import File
 from django import forms
 from login.models import User
+#import subprocess
+import commands
+import os
+
 
 # Create your class here.
 class FileList(ListView):
 	model = File
 	context_object_name = 'file_list'  
 	template_name = 'overview.html'	
-	paginate_by = 3 
+	paginate_by = 10 
 
 
 class UploadFileForm(forms.Form):
@@ -79,9 +83,14 @@ def analysis(req):
 			# 需要添加用户来共同限制
 			filename = form.cleaned_data['filename']
 			paras ={}
+			paras['filename']='media/'+filename
 			paras['mode'] = form.cleaned_data['mode']
 			paras['folder'] = form.cleaned_data['folder']
-			paras['res_file'] = form.cleaned_data['res_file']
+			# create output folder
+			(outdir,ty) = os.path.splitext(paras['filename'])
+			if not os.path.exists(outdir):
+				os.makedirs(outdir)
+			paras['res_file'] = os.path.join(outdir,form.cleaned_data['res_file'])
 			paras['user_dict'] = form.cleaned_data['user_dict']
 			print str(paras)
 			files = File.objects.filter(filename=filename)
@@ -93,16 +102,42 @@ def analysis(req):
 
 				# analysising
 				print 'analysising============'
-
-
+				res_link=process(paras)
+	
+				
+				# save
+				files.update(status = '3')
+				files.update(result_link = res_link)
+				files[0].save()
 			else:
 				print 'the file objects are more than one.'	
 			return HttpResponseRedirect('/enlu/handle/')
 	else:
 		filename = req.GET.get('file')
 		print filename
-		init_par = {'mode':'1','folder':'../model','res_file':'result.txt'}
+		init_par = {'mode':'1','folder':'model','res_file':'result.txt'}
 		init_par['filename']=filename
 		form = AnalysisForm(initial=init_par)
 	
 	return render_to_response('analysis.html',{'form':form})
+
+
+
+
+def process(paras):
+	print paras['filename'],paras['mode'],paras['folder'],paras['res_file']
+	#child = subprocess.Popen(['sh','runthis.sh', paras['filename'], paras['mode'],paras['folder'], paras['res_file'], paras['user_dict']], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+	#while True:
+	#	if child.poll() !=None:
+	#		break;
+	cmd = "sh runthis.sh "+paras['filename']+" "+paras['mode']+" "+paras['folder']+" "+paras['res_file']+" "+paras['user_dict']
+	print cmd
+	(status, output) = commands.getstatusoutput(cmd)
+	if status:
+		print "error"
+	else:
+		(path,basename) = os.path.split(paras['res_file'])
+		(sta,out) = commands.getstatusoutput('ls -1t '+path+' | head -1')
+		print "analysised==========="
+		return os.path.join(path,out)+'/ANALYSIS_Performance.html'
+

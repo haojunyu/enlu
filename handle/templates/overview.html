@@ -35,7 +35,7 @@ table th, table td{border:2 solid black}
            	 		<td>分析参数为：{{file.parameters}}</td>
            	 	{% else %}
            	 		<td>完成分析</td>
-						<td>结果链接：{{file.result_link}}</td>
+						<td><a href="/{{file.result_link}}" >结果链接</a></td>
            	 	{% endif %}
            	 {% endif %}
             <td>{{file.parameters}}</td>
@@ -47,13 +47,13 @@ table th, table td{border:2 solid black}
     <div class="pagination">
         <span class="page-links">
             {% if page_obj.has_previous %}
-                <a href="/handle?page={{ page_obj.previous_page_number }}">上一页</a>
+                <a href="/enlu/handle?page={{ page_obj.previous_page_number }}">上一页</a>
             {% endif %}
             {% if page_obj.has_next %}
-                <a href="/handle?page={{ page_obj.next_page_number }}">下一页</a>
+                <a href="/enlu/handle?page={{ page_obj.next_page_number }}">下一页</a>
             {% endif %}
             <span class="page-current">
-                第{{ page_obj.number }}页 ，工{{ page_obj.paginator.num_pages }}页。
+                第{{ page_obj.number }}页 ，共{{ page_obj.paginator.num_pages }}页。
             </span>
         </span>
     </div>
@@ -61,6 +61,7 @@ table th, table td{border:2 solid black}
 {% else %}
 <p>No file_list !!!</p>
 {% endif %}
+
 </body>
 </html>
 
