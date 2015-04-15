@@ -38,7 +38,8 @@ def upload(req):
 		if form.is_valid():
 			return HttpResponse('ok')
 	else:
-		form = UploadFileForm()
+		username=req.COOKIES.get('username','')
+		form = UploadFileForm(initial={'user':username})
 	
 	return render_to_response('upload.html',{'formset':form})
 
@@ -141,3 +142,16 @@ def process(paras):
 		print "analysised==========="
 		return os.path.join(path,out)+'/ANALYSIS_Performance.html'
 
+
+
+def show(req,paths):
+	(path,basename) = os.path.split(paths)
+	parts=path.split()
+	cmd = "rm templates/* && cp media/"+parts[0]+"\ "+parts[1]+"/* templates/"
+	print cmd
+	(status, output) = commands.getstatusoutput(cmd)
+	if status:
+		print "rm error"
+		return HttpResponseRedirect('/enlu/handle/')
+	else:
+		return render_to_response(basename)

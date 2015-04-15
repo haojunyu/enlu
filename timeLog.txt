@@ -25,3 +25,7 @@
 2015/04/08 16:30:46 Wednesday	Total Number of Entries:3	Total CPU time:0.116248	Total Real time:0	Word Segmentation time:0.00112	Database search time:4.3e-05	Topic classification time:0.008606	Slot extraction time:0.106479
 2015/04/08 16:56:25 Wednesday	Total Number of Entries:3	Total CPU time:0.122347	Total Real time:0	Word Segmentation time:0.001138	Database search time:4.5e-05	Topic classification time:0.009835	Slot extraction time:0.111329
 2015/04/08 17:07:47 Wednesday	Total Number of Entries:3	Total CPU time:0.11571	Total Real time:0	Word Segmentation time:0.001059	Database search time:4e-05	Topic classification time:0.009099	Slot extraction time:0.105512
+2015/04/15 10:19:24 Wednesday	Total Number of Entries:3	Total CPU time:0.12003	Total Real time:0	Word Segmentation time:0.001154	Database search time:4.9e-05	Topic classification time:0.008618	Slot extraction time:0.110209
+2015/04/15 10:53:59 Wednesday	Total Number of Entries:3	Total CPU time:0.125518	Total Real time:0	Word Segmentation time:0.001138	Database search time:4.6e-05	Topic classification time:0.008627	Slot extraction time:0.115707
+2015/04/15 13:38:39 Wednesday	Total Number of Entries:3	Total CPU time:0.114852	Total Real time:0	Word Segmentation time:0.001304	Database search time:4.4e-05	Topic classification time:0.008339	Slot extraction time:0.105165
+2015/04/15 13:49:12 Wednesday	Total Number of Entries:314	Total CPU time:6.77373	Total Real time:7	Word Segmentation time:0.063876	Database search time:0.003097	Topic classification time:1.11447	Slot extraction time:5.59229

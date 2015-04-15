@@ -1,12 +1,32 @@
 <html>
-<head><title>{{username}}'s workspaces</title>
+<head>
 <style type="text/css">
 table{border:3 solid black; border-collapse:collapse}
 table th, table td{border:2 solid black}
 </style>
-
+<script type="text/javascript" >
+	function getCookie(c_name) {
+				if (document.cookie.length>0) {
+					c_start=document.cookie.indexOf(c_name + "=")
+					if (c_start!=-1) {
+						c_start=c_start+c_name.length+1
+						c_end=document.cookie.indexOf(";",c_start)
+						if (c_end==-1) {
+							c_end=document.cookie.length
+							return unescape(document.cookie.substring(c_start,c_end))
+						}
+					}
+					return ""
+				}
+	}
+	
+	function setTitle() {
+		document.title = getCookie("username")+"'  workspace";ss
+	}
+	
+</script>
 </head>
-<body>
+<body onLoad="setTitle()">
 <a href="/enlu/upload"><input type="button"  value=文件上传></input></a>
 <h3> 任务状态显示</h3>
 
@@ -19,7 +39,6 @@ table th, table td{border:2 solid black}
             <th>状态</th>
             <th>操作</th>
             <th>参数</th>
-            <th>结果</th>
         </tr>
     {%for file in file_list %}
         <tr>
@@ -39,7 +58,6 @@ table th, table td{border:2 solid black}
            	 	{% endif %}
            	 {% endif %}
             <td>{{file.parameters}}</td>
-            <td>{{file.result_link}}</td>
         </tr>
     {% endfor%}
     </table>

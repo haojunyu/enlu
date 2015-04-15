@@ -22,14 +22,13 @@ def login(req):
 			user = User.objects.filter(username__exact=username)	
 			if user.__len__() >= 1  :
 				if user[0].password == password :
-					return HttpResponseRedirect('/enlu/handle/?username=%s' % username)
-				#	return render_to_response('overview.html',{})
+					response = HttpResponseRedirect('/enlu/handle/?username=%s' % username)
+					response.set_cookie('username',username,3600)
+					return response
 				else :
-				#	return HttpResponse('<script>alert("密码错误!")</script>')
 					return render_to_response('login.html',{'form':form, 'message':'密码错误!'})
 			else:
 				return render_to_response('login.html',{'form':form , 'message' : '没有该用户!'})
-			#	HttpResponse('<script>alert("没有该用户!")</script>')
 		#		return render_to_response('showMessage.html',{'message':'没有该用户!'})
 		#	print form.cleaned_data	# get data
 	else :
