@@ -38,7 +38,6 @@ table th, table td{border:2 solid black}
             <th>上传者</th>
             <th>状态</th>
             <th>操作</th>
-            <th>参数</th>
         </tr>
     {%for file in file_list %}
         <tr>
@@ -57,7 +56,6 @@ table th, table td{border:2 solid black}
 						<td><a href="/{{file.result_link}}" >结果链接</a></td>
            	 	{% endif %}
            	 {% endif %}
-            <td>{{file.parameters}}</td>
         </tr>
     {% endfor%}
     </table>

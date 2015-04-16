@@ -5,9 +5,10 @@ from django.views.generic import ListView
 from handle.models import File
 from django import forms
 from login.models import User
-#import subprocess
 import commands
 import os
+from multiprocessing import Process
+import MySQLdb
 
 
 # Create your class here.
@@ -97,25 +98,25 @@ def analysis(req):
 			files = File.objects.filter(filename=filename)
 			if files.__len__() == 1:
 				# begin to analysis
-				files.update(status = '2')
-				files.update(parameters = str(paras))
-				files[0].save()
+				File.objects.filter(filename=filename).update(status = '2')
+				File.objects.filter(filename=filename).update(parameters = str(paras))
+			#	files[0].save()
 
 				# analysising
 				print 'analysising============'
-				res_link=process(paras)
-	
+				#print process(paras)
+				#p = Process(target = protext, args=(str(paras),))
+				p = Process(target = prom, args=(paras['filename'],paras['mode'],paras['folder'],paras['res_file'],paras['user_dict']))
+				p.start()
 				
-				# save
-				files.update(status = '3')
-				files.update(result_link = res_link)
-				files[0].save()
 			else:
-				print 'the file objects are more than one.'	
+				print 'the file objects are more than one.'
+
 			return HttpResponseRedirect('/enlu/handle/')
 	else:
 		filename = req.GET.get('file')
-		print filename
+		if not filename:
+			return HttpResponseRedirect("/enlu/login/")
 		init_par = {'mode':'1','folder':'model','res_file':'result.txt'}
 		init_par['filename']=filename
 		form = AnalysisForm(initial=init_par)
@@ -123,31 +124,54 @@ def analysis(req):
 	return render_to_response('analysis.html',{'form':form})
 
 
-
-
-def process(paras):
+def prom(filename,mode,folder,res_file,user_dict):
+	print "starting child process with id:" , os.getpid()
+	paras = {'filename':filename, 'mode':mode, 'folder':folder, 'res_file':res_file, 'user_dict':user_dict}
 	print paras['filename'],paras['mode'],paras['folder'],paras['res_file']
-	#child = subprocess.Popen(['sh','runthis.sh', paras['filename'], paras['mode'],paras['folder'], paras['res_file'], paras['user_dict']], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-	#while True:
-	#	if child.poll() !=None:
-	#		break;
 	cmd = "sh runthis.sh "+paras['filename']+" "+paras['mode']+" "+paras['folder']+" "+paras['res_file']+" "+paras['user_dict']
 	print cmd
 	(status, output) = commands.getstatusoutput(cmd)
+	sta = '0'
+	name = paras['filename'].replace('media/','')
+	res_link = ""
 	if status:
-		print "error"
+		print output
+		sta = '1'
 	else:
 		(path,basename) = os.path.split(paras['res_file'])
 		(sta,out) = commands.getstatusoutput('ls -1t '+path+' | head -1')
 		print "analysised==========="
-		return os.path.join(path,out)+'/ANALYSIS_Performance.html'
+		# save
+		res_link = os.path.join(path,out)+'/ANALYSIS_Performance.html'
+		sta = '3'
+		#files = File.objects.filter(filename=name)
+		#print files[0].filename
+		#File.objects.filter(filename=name).update(status = '3')
+		#File.objects.filter(filename=name).update(result_link = res_link)
+	#db operator
+	db = MySQLdb.connect("localhost","root","root","enlu")
+	cursor = db.cursor()
+	if sta == '3':
+		sql = "UPDATE handle_file set status='"+sta+"' , result_link='"+res_link+"' where filename='"+name+"'"
+	else:
+		sql = "UPDATE handle_file set status='"+sta+"' where filename='"+name+"'"
+	print sql
+	try:
+		cursor.execute(sql)
+		db.commit()
+	except:
+		db.rollback()
+
+	db.close()
+	print sta
+
 
 
 
 def show(req,paths):
 	(path,basename) = os.path.split(paths)
 	parts=path.split()
-	cmd = "rm templates/* && cp media/"+parts[0]+"\ "+parts[1]+"/* templates/"
+	cmd = "rm templates/* ; cp media/"+parts[0]+"\ "+parts[1]+"/* templates/"
 	print cmd
 	(status, output) = commands.getstatusoutput(cmd)
 	if status:
